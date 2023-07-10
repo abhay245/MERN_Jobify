@@ -49,7 +49,7 @@ export const Register = () => {
     if (user) {
       const timeout = setTimeout(() => {
         navigate('/'); 
-      }, 4000); 
+      }, 2000); 
 
       return () => clearTimeout(timeout); 
     }
@@ -87,9 +87,8 @@ export const Register = () => {
           label="Password"
         />
 
-        <button type="submit" className="btn btn-block" 
-        >
-          Submit
+        <button type="submit" className="btn btn-block" disabled={isLoading}>        
+          {isLoading?"Please wait!!!":"Submit"}
         </button>
         <p>
           {values.isMember ? 'Not a member yet?' : 'Already a member?'}
