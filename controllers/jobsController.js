@@ -12,7 +12,6 @@ const createJob = async (req, res) => {
         const job = await Job.create(req.body);
         res.status(201).json({job});        
     } catch (error) {
-      console.log(error)
         res.status(500).json({error:error.message})
     }
   };  
@@ -111,7 +110,6 @@ const showStats = async (req, res) => {
     return acc;
   }, {});
 
-  console.log(stats);
 
   const defaultStats = {
     pending: stats.Pending || 0,
