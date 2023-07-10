@@ -1,30 +1,31 @@
 require('dotenv').config();
-require('express-async-errors');
 const express = require('express');
-const { dirname } = require('path');
-const { fileURLToPath } = require('url');
-const app = express();
+const path = require('path');
 const cors = require('cors');
-const connectDB = require('./db/connect.js');
-const authRouter = require('./routes/authRoutes.js');
-const jobsRouter = require('./routes/jobsRouter.js');
+const connectDB = require('./db/connect');
+const authRouter = require('./routes/authRoutes');
+const jobsRouter = require('./routes/jobsRouter');
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
-const authenticateUser = require('./middleware/auth.js');
+const authenticateUser = require('./middleware/auth');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const { xss } = require('xss-clean');
-const { mongoSanitize } = require('express-mongo-sanitize');
+const  xss = require('xss-clean');
+const mongoSanitize = require('express-mongo-sanitize');
+
+const app = express();
 
 // Middleware
 app.use(cors());
 
 // Setting up Morgan
-if (process.env.NODE_ENV != 'production') {
+if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
 
-app.use(express.static(path.resolve(dirname(fileURLToPath(import.meta.url)), './client/build')));
+// const __dirname = path.resolve();
+app.use(express.static(path.resolve(__dirname, './client/build')));
+
 // Parse JSON request bodies
 app.use(express.json());
 app.use(helmet());
@@ -39,6 +40,7 @@ app.get('/', (req, res) => {
 // Route handlers
 app.use('/auth', authRouter); // Handle routes starting with "/auth"
 app.use('/jobs', authenticateUser, jobsRouter); // Handle routes starting with "/jobs"
+
 app.get('*', function (request, response) {
   response.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
 });
