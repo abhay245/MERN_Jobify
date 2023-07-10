@@ -24,9 +24,7 @@ if (process.env.NODE_ENV != 'production') {
   app.use(morgan('dev'));
 }
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, './client/build')));
-
+app.use(express.static(path.resolve(dirname(fileURLToPath(import.meta.url)), './client/build')));
 // Parse JSON request bodies
 app.use(express.json());
 app.use(helmet());
