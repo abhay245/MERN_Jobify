@@ -87,7 +87,8 @@ export const Register = () => {
           label="Password"
         />
 
-        <button type="submit" className="btn btn-block" disabled={isLoading}>
+        <button type="submit" className="btn btn-block" 
+        >
           Submit
         </button>
         <p>
