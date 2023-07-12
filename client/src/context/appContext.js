@@ -1,4 +1,4 @@
-import React, { useReducer, useContext,useEffect} from 'react';
+import React,{ useReducer, useContext,useEffect} from 'react';
 import axios from 'axios';
 import reducer from './reducer';
 import {
@@ -121,7 +121,10 @@ const registerUser = async (currentUser) => {
     });
     displayAlert(); 
   }
-  clearAlert();
+  setTimeout(()=>{
+
+    clearAlert();
+  },4000)
 };
 
 const loginUser = async (currentUser) => {
@@ -141,7 +144,10 @@ const loginUser = async (currentUser) => {
     });
     displayAlert(); // Display the alert for login error
   }
-  clearAlert();
+  setTimeout(()=>{
+
+    clearAlert();
+  },4000)
 }
 const logoutUser = ()=>{
   dispatch({type:LOGOUT_USER})
